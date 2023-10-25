@@ -6,7 +6,7 @@ rules.paragraph = {
   filter: 'p',
 
   replacement: function (content) {
-    return '\n\n' + content + '\n\n'
+    return '\n' + content + '\n' //改行の数を２から１へ減らした
   }
 }
 
@@ -17,20 +17,44 @@ rules.lineBreak = {
     return options.br + '\n'
   }
 }
+rules.kakko = {
+  filter: 'rp',
 
+  replacement: function (content) {
+    return '' //ルビタグの互換のための()を除去
+  }
+}
+rules.furigana = {
+  filter: 'rt',
+
+  replacement: function (content) {
+    return '《' + content + '》' //ふりがな部分を《》で囲む
+  }
+}
+rules.kanji = {
+  filter: 'ruby',
+
+  replacement: function (content) {
+    return '｜' + content //ふりがなをつける部分を｜で区切る
+  }
+}
 rules.heading = {
   filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
   replacement: function (content, node, options) {
-    var hLevel = Number(node.nodeName.charAt(1))
+    var hLevel = Number(node.nodeName.charAt(1)) //見出しと字下げ
+    const midashi=[{'start':'［＃大見出し］','end':'［＃大見出し終わり］'},
+    {'start':'［＃中見出し］','end':'［＃中見出し終わり］'},
+    {'start':'［＃小見出し］','end':'［＃小見出し終わり］'}]
+    var tophLevel = Number(options.headingStyle.charAt(1))
 
-    if (options.headingStyle === 'setext' && hLevel < 3) {
+    if (tophLevel< hLevel+1 && hLevel< tophLevel+3) {
       var underline = repeat((hLevel === 1 ? '=' : '-'), content.length)
-      return (
-        '\n\n' + content + '\n' + underline + '\n\n'
-      )
+      return '\n［＃５字下げ］' + midashi[hLevel-1].start + content + midashi[hLevel-1].end + '\n'
     } else {
-      return '\n\n' + repeat('#', hLevel) + ' ' + content + '\n\n'
+      return (
+        '\n［＃３字下げ］' + content + '\n'
+      )
     }
   }
 }
@@ -249,11 +273,11 @@ rules.image = {
   filter: 'img',
 
   replacement: function (content, node) {
-    var alt = cleanAttribute(node.getAttribute('alt'))
+    var alt = cleanAttribute(node.getAttribute('alt'))//［＃画像（image.jpg）入る］
     var src = node.getAttribute('src') || ''
     var title = cleanAttribute(node.getAttribute('title'))
     var titlePart = title ? ' "' + title + '"' : ''
-    return src ? '![' + alt + ']' + '(' + src + titlePart + ')' : ''
+    return src ? '［＃' + alt +'（' + src + titlePart + '）入る］' : ''
   }
 }
 
