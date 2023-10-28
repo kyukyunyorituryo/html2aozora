@@ -6,7 +6,7 @@ rules.paragraph = {
   filter: 'p',
 
   replacement: function (content) {
-    return '\n' + content + '\n' //改行の数を２から１へ減らした
+    return '\n' + content + '\n' // 改行の数を２から１へ減らした
   }
 }
 
@@ -21,31 +21,31 @@ rules.kakko = {
   filter: 'rp',
 
   replacement: function (content) {
-    return '' //ルビタグの互換のための()を除去
+    return '' // ルビタグの互換のための()を除去
   }
 }
 rules.furigana = {
   filter: 'rt',
 
   replacement: function (content) {
-    return '《' + content + '》' //ふりがな部分を《》で囲む
+    return '《' + content + '》' // ふりがな部分を《》で囲む
   }
 }
 rules.kanji = {
   filter: 'ruby',
 
   replacement: function (content) {
-    return '｜' + content //ふりがなをつける部分を｜で区切る
+    return '｜' + content // ふりがなをつける部分を｜で区切る
   }
 }
 rules.heading = {
   filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
   replacement: function (content, node, options) {
-    var hLevel = Number(node.nodeName.charAt(1)) //見出しと字下げ
-    const midashi=[{'start':'［＃大見出し］','end':'［＃大見出し終わり］'},
-    {'start':'［＃中見出し］','end':'［＃中見出し終わり］'},
-    {'start':'［＃小見出し］','end':'［＃小見出し終わり］'}]
+    var hLevel = Number(node.nodeName.charAt(1)) // 見出しと字下げ
+    const midashi = [{ 'start' : '［＃大見出し］' , 'end' : '［＃大見出し終わり］' },
+    { 'start': '［＃中見出し］', 'end': '［＃中見出し終わり］'},
+    { 'start':'［＃小見出し］','end':'［＃小見出し終わり］'}]
     var tophLevel = Number(options.headingStyle.charAt(1))
 
     if (tophLevel< hLevel+1 && hLevel< tophLevel+3) {
@@ -63,9 +63,7 @@ rules.blockquote = {
   filter: 'blockquote',
 
   replacement: function (content) {
-    content = content.replace(/^\n+|\n+$/g, '')
-    content = content.replace(/^/gm, '> ')
-    return '\n\n' + content + '\n\n'
+    return '\n［＃ここから２字下げ］\n' + content + '\n［＃ここで字下げ終わり］\n'
   }
 }
 
@@ -74,11 +72,8 @@ rules.list = {
 
   replacement: function (content, node) {
     var parent = node.parentNode
-    if (parent.nodeName === 'LI' && parent.lastElementChild === node) {
-      return '\n' + content
-    } else {
-      return '\n\n' + content + '\n\n'
-    }
+    return '［＃ここから２字下げ、折り返して３字下げ］\n' + content + '\n［＃ここで字下げ終わり］'
+
   }
 }
 
@@ -90,7 +85,7 @@ rules.listItem = {
       .replace(/^\n+/, '') // remove leading newlines
       .replace(/\n+$/, '\n') // replace trailing newlines with just a single one
       .replace(/\n/gm, '\n    ') // indent
-    var prefix = options.bulletListMarker + '   '
+    var prefix = options.bulletListMarker
     var parent = node.parentNode
     if (parent.nodeName === 'OL') {
       var start = parent.getAttribute('start')
@@ -114,11 +109,7 @@ rules.indentedCodeBlock = {
   },
 
   replacement: function (content, node, options) {
-    return (
-      '\n\n    ' +
-      node.firstChild.textContent.replace(/\n/g, '\n    ') +
-      '\n\n'
-    )
+        return '\n［＃ここから２字下げ］\n' + content + '\n［＃ここで字下げ終わり］\n'
   }
 }
 
@@ -137,23 +128,10 @@ rules.fencedCodeBlock = {
     var language = (className.match(/language-(\S+)/) || [null, ''])[1]
     var code = node.firstChild.textContent
 
-    var fenceChar = options.fence.charAt(0)
-    var fenceSize = 3
-    var fenceInCodeRegex = new RegExp('^' + fenceChar + '{3,}', 'gm')
-
-    var match
-    while ((match = fenceInCodeRegex.exec(code))) {
-      if (match[0].length >= fenceSize) {
-        fenceSize = match[0].length + 1
-      }
-    }
-
-    var fence = repeat(fenceChar, fenceSize)
-
     return (
-      '\n\n' + fence + language + '\n' +
+      '\n\n［＃ここから' + language + '言語］\n' +
       code.replace(/\n$/, '') +
-      '\n' + fence + '\n\n'
+      '\n［＃ここで' + language + '言語終わり］\n\n'
     )
   }
 }
@@ -162,14 +140,13 @@ rules.horizontalRule = {
   filter: 'hr',
 
   replacement: function (content, node, options) {
-    return '\n\n' + options.hr + '\n\n'
+    return '\n\n［＃改ページ］\n\n' // 区切りを改ページに
   }
 }
 
 rules.inlineLink = {
   filter: function (node, options) {
     return (
-      options.linkStyle === 'inlined' &&
       node.nodeName === 'A' &&
       node.getAttribute('href')
     )
@@ -178,57 +155,11 @@ rules.inlineLink = {
   replacement: function (content, node) {
     var href = node.getAttribute('href')
     var title = cleanAttribute(node.getAttribute('title'))
-    if (title) title = ' "' + title + '"'
-    return '[' + content + '](' + href + title + ')'
+    if (title) title = ' title="' + title +'" '
+    return '<a href="' + href + '"' + title+'>'+content + '</a>'
   }
 }
 
-rules.referenceLink = {
-  filter: function (node, options) {
-    return (
-      options.linkStyle === 'referenced' &&
-      node.nodeName === 'A' &&
-      node.getAttribute('href')
-    )
-  },
-
-  replacement: function (content, node, options) {
-    var href = node.getAttribute('href')
-    var title = cleanAttribute(node.getAttribute('title'))
-    if (title) title = ' "' + title + '"'
-    var replacement
-    var reference
-
-    switch (options.linkReferenceStyle) {
-      case 'collapsed':
-        replacement = '[' + content + '][]'
-        reference = '[' + content + ']: ' + href + title
-        break
-      case 'shortcut':
-        replacement = '[' + content + ']'
-        reference = '[' + content + ']: ' + href + title
-        break
-      default:
-        var id = this.references.length + 1
-        replacement = '[' + content + '][' + id + ']'
-        reference = '[' + id + ']: ' + href + title
-    }
-
-    this.references.push(reference)
-    return replacement
-  },
-
-  references: [],
-
-  append: function (options) {
-    var references = ''
-    if (this.references.length) {
-      references = '\n\n' + this.references.join('\n') + '\n\n'
-      this.references = [] // Reset references
-    }
-    return references
-  }
-}
 
 rules.emphasis = {
   filter: ['em', 'i'],
