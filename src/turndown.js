@@ -25,15 +25,13 @@ export default function TurndownService (options) {
 
   var defaults = {
     rules: COMMONMARK_RULES,
-    headingStyle: 'setext',
-    hr: '* * *',
-    bulletListMarker: '*',
-    codeBlockStyle: 'indented',
-    fence: '```',
-    emDelimiter: '_',
-    strongDelimiter: '**',
-    linkStyle: 'inlined',
-    linkReferenceStyle: 'full',
+    "headingStyle": "h1",
+    "bulletListMarker": "●　",
+    "codeBlockStyle": "fenced",
+    "boldDelimiter": "太字",
+    "strongDelimiter": "傍点",
+    "emDelimiter": "傍線",
+    "italicDelimiter": "斜体",
     br: '  ',
     preformattedCode: false,
     blankReplacement: function (content, node) {
