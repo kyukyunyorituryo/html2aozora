@@ -162,20 +162,74 @@ rules.inlineLink = {
 
 
 rules.emphasis = {
-  filter: ['em', 'i'],
+  filter: ['em'],
 
   replacement: function (content, node, options) {
     if (!content.trim()) return ''
-    return options.emDelimiter + content + options.emDelimiter
+    return '［＃'+ options.emDelimiter + '］'+ content + '［＃'+ options.emDelimiter + '終わり］'
+  }
+}
+
+rules.italic = {
+  filter: [ 'i'],
+
+  replacement: function (content, node, options) {
+    if (!content.trim()) return ''
+    return '［＃'+ options.italicDelimiter + '］'+ content + '［＃'+ options.italicDelimiter + '終わり］'
   }
 }
 
 rules.strong = {
-  filter: ['strong', 'b'],
+  filter: ['strong'],
 
   replacement: function (content, node, options) {
     if (!content.trim()) return ''
-    return options.strongDelimiter + content + options.strongDelimiter
+    return '［＃'+ options.strongDelimiter + '］'+ content + '［＃'+ options.strongDelimiter + '終わり］'
+  }
+}
+
+rules.bold = {
+  filter: ['b'],
+
+  replacement: function (content, node, options) {
+    if (!content.trim()) return ''
+    return '［＃'+ options.boldDelimiter + '］'+ content + '［＃'+ options.boldDelimiter + '終わり］'
+  }
+}
+
+rules.underline = {
+  filter: ['u'],
+
+  replacement: function (content, node, options) {
+    if (!content.trim()) return ''
+    return '［＃左に傍線］'+ content + '［＃左に傍線終わり］'
+  }
+}
+
+rules.del = {
+  filter: ['del'],
+
+  replacement: function (content, node, options) {
+    if (!content.trim()) return ''
+    return '［＃取消線］'+ content + '［＃取消線終わり］'
+  }
+}
+
+rules.sup = {
+  filter: ['sup'],
+
+  replacement: function (content, node, options) {
+    if (!content.trim()) return ''
+    return '［＃上付き小文字］'+ content + '［＃上付き小文字終わり］'
+  }
+}
+
+rules.sub = {
+  filter: ['sub'],
+
+  replacement: function (content, node, options) {
+    if (!content.trim()) return ''
+    return '［＃下付き小文字］'+ content + '［＃下付き小文字終わり］'
   }
 }
 
