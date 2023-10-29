@@ -25,14 +25,14 @@ export default function TurndownService (options) {
 
   var defaults = {
     rules: COMMONMARK_RULES,
-    "headingStyle": "h1",
+    "headingTop": "h1",
     "bulletListMarker": "●　",
     "codeBlockStyle": "fenced",
     "boldDelimiter": "太字",
     "strongDelimiter": "傍点",
     "emDelimiter": "傍線",
     "italicDelimiter": "斜体",
-    br: '  ',
+    br: '',
     preformattedCode: false,
     blankReplacement: function (content, node) {
       return node.isBlock ? '\n\n' : ''
