@@ -1,14 +1,16 @@
-# Turndown
+# Html2Aozora
+HTML青空文庫変換
 
-[![Build Status](https://travis-ci.org/domchristie/turndown.svg?branch=master)](https://travis-ci.org/domchristie/turndown)
-
-Convert HTML into Markdown with JavaScript.
+HTMLを青空文庫注記に変換するJavaScriptです。
+Convert HTML into Aozora Bunko with JavaScript.
 
 ## Project Updates
 * `to-markdown` has been renamed to Turndown. See the [migration guide](https://github.com/domchristie/to-markdown/wiki/Migrating-from-to-markdown-to-Turndown) for details.
 * Turndown repository has changed its URL to https://github.com/mixmark-io/turndown.
+* Turndownをもとに改造したリポジトリです。
 
 ## Installation
+npmにはまだ公開していません。forkして利用してください。
 
 npm:
 
@@ -50,15 +52,13 @@ var turndownService = new TurndownService({ option: 'value' })
 
 | Option                | Valid values  | Default |
 | :-------------------- | :------------ | :------ |
-| `headingStyle`        | `setext` or `atx` | `setext`  |
-| `hr`                  | Any [Thematic break](http://spec.commonmark.org/0.27/#thematic-breaks) | `* * *` |
-| `bulletListMarker`    | `-`, `+`, or `*` | `*` |
+| `headingTop`        | `h1` から `h6` | `h1`  |
+| `bulletListMarker`    | `●　`, `〇　`, or `一、` | `●　` |
 | `codeBlockStyle`      | `indented` or `fenced` | `indented` |
-| `fence`               | ` ``` ` or `~~~` | ` ``` ` |
-| `emDelimiter`         | `_` or `*` | `_` |
-| `strongDelimiter`     | `**` or `__` | `**` |
-| `linkStyle`           | `inlined` or `referenced` | `inlined` |
-| `linkReferenceStyle`  | `full`, `collapsed`, or `shortcut` | `full` |
+| `emDelimiter`         | `太字`、`傍点`、`傍線`、`斜体` | `傍線` |
+| `strongDelimiter`     | `太字`、`傍点`、`傍線`、`斜体` | `傍点` |
+| `boldDelimiter`       | `太字`、`傍点`、`傍線`、`斜体` | `太字` |
+| `italicDelimiter`     | `太字`、`傍点`、`傍線`、`斜体` | `斜体` |
 | `preformattedCode`    | `false` or [`true`](https://github.com/lucthev/collapse-whitespace/issues/16) | `false` |
 
 ### Advanced Options
@@ -232,3 +232,4 @@ Note: text in code elements is never passed to`escape`.
 ## License
 
 turndown is copyright © 2017+ Dom Christie and released under the MIT license.
+Html2Aozora is Copyright (C) 2023 [@kyukyunyorituryo](https://github.com/kyukyunyorituryo) and released under the MIT license.
