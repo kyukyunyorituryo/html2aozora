@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Turndown Demo</title>
+<title>Html to AozoraBunko converter</title>
 <meta name="viewport" content="width=device-width">
 <style>
   * {
@@ -113,8 +113,8 @@
 </head>
 <body>
 <header>
-  <h1>turndown</h1>
-  <a class="source-link" href="https://github.com/mixmark-io/turndown">Source on GitHub</a>
+  <h1>Html青空文庫変換</h1>
+  <a class="source-link" href="https://github.com/kyukyunyorituryo/html2aozora">Source on GitHub</a>
 </header>
 <div class="row">
   <div class="col">
@@ -152,7 +152,7 @@ console.log(
 </textarea>
   </div>
   <div class="col">
-    <label for="output">Markdown</label>
+    <label for="output">青空文庫</label>
     <textarea readonly cols="100" rows=10 id="output"></textarea>
   </div>
 </div>
@@ -160,8 +160,8 @@ console.log(
 <div class="row">
   <form method="get" action="/turndown" id="options">
     <div class="form-group">
-      <label for="headingStyle">Heading Top</label>
-      <select name="headingStyle" id="headingStyle">
+      <label for="headingTop">見出しトップ</label>
+      <select name="headingTop" id="headingTop">
         <option value="h1">h1</option>
         <option value="h2">h2</option>
         <option value="h3">h3</option>
@@ -172,7 +172,7 @@ console.log(
     </div>
 
     <div class="form-group">
-      <label for="bulletListMarker">Bullet</label>
+      <label for="bulletListMarker">リスト</label>
       <select name="bulletListMarker" id="bulletListMarker">
         <option value="●　">●　</option>
         <option value="〇　">〇　</option>
@@ -181,16 +181,16 @@ console.log(
     </div>
 
     <div class="form-group">
-      <label for="codeBlockStyle">Code block style</label>
+      <label for="codeBlockStyle">コードブロック</label>
       <select name="codeBlockStyle" id="codeBlockStyle">
         <option value="indented">indented</option>
-        <option value="fenced" selected>fenced</option>
+        <option value="fenced">fenced</option>
       </select>
     </div>
 
 
     <div class="form-group">
-      <label for="strongDelimiter">Bold delimiter</label>
+      <label for="strongDelimiter">Bタグ</label>
       <select name="boldDelimiter" id="boldDelimiter">
         <option value="太字">太字</option>
         <option value="傍点">傍点</option>
@@ -199,7 +199,7 @@ console.log(
       </select>
     </div>
     <div class="form-group">
-      <label for="strongDelimiter">Strong delimiter</label>
+      <label for="strongDelimiter">Strongタグ</label>
       <select name="strongDelimiter" id="strongDelimiter">
         <option value="太字">太字</option>
         <option value="傍点" selected>傍点</option>
@@ -208,7 +208,7 @@ console.log(
       </select>
     </div>
     <div class="form-group">
-      <label for="emDelimiter">Em delimiter</label>
+      <label for="emDelimiter">Emタグ</label>
       <select name="emDelimiter" id="emDelimiter">
         <option value="太字">太字</option>
         <option value="傍点">傍点</option>
@@ -217,7 +217,7 @@ console.log(
       </select>
     </div>
     <div class="form-group">
-      <label for="italicDelimiter">Italic delimiter</label>
+      <label for="italicDelimiter">iタグ</label>
       <select name="italicDelimiter" id="italicDelimiter">
         <option value="太字">太字</option>
         <option value="傍点">傍点</option>
@@ -230,7 +230,7 @@ console.log(
   </form>
 </div>
 
-<footer><p>Turndown is copyright © 2017 <a href="http://www.domchristie.co.uk/">Dom Christie</a> and is released under the MIT license</p></footer>
+<footer><p>html2aozora is copyright © 2023 <a href="https://github.com/kyukyunyorituryo">@kyukyunyorituryo</a> and is released under the MIT license</p></footer>
 <script>
   ;(function () {
     var input = document.getElementById('input')
