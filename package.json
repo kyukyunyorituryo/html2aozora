@@ -1,6 +1,6 @@
 {
-  "name": "turndown",
-  "description": "A library that converts HTML to Markdown",
+  "name": "html2aozora",
+  "description": "A library that converts HTML to AozoraBunko",
   "version": "7.1.2",
   "author": "Dom Christie",
   "main": "lib/turndown.cjs.js",
