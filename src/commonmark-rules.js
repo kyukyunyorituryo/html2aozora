@@ -46,7 +46,7 @@ rules.heading = {
     const midashi = [{ 'start' : '［＃大見出し］' , 'end' : '［＃大見出し終わり］' },
     { 'start': '［＃中見出し］', 'end': '［＃中見出し終わり］'},
     { 'start':'［＃小見出し］','end':'［＃小見出し終わり］'}]
-    var tophLevel = Number(options.headingStyle.charAt(1))
+    var tophLevel = Number(options.headingTop.charAt(1))
 
     if (tophLevel< hLevel+1 && hLevel< tophLevel+3) {
       var underline = repeat((hLevel === 1 ? '=' : '-'), content.length)
