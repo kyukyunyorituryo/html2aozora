@@ -4,6 +4,10 @@ HTML青空文庫変換
 HTMLを青空文庫注記に変換するJavaScriptです。
 Convert HTML into Aozora Bunko with JavaScript.
 
+[webでの動作ページ](https://kyukyunyorituryo.github.io/aozora/)
+
+https://kyukyunyorituryo.github.io/aozora/
+
 ## Project Updates
 * `to-markdown` has been renamed to Turndown. See the [migration guide](https://github.com/domchristie/to-markdown/wiki/Migrating-from-to-markdown-to-Turndown) for details.
 * Turndown repository has changed its URL to https://github.com/mixmark-io/turndown.
