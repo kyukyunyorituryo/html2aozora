@@ -202,12 +202,12 @@ rules.underline = {
 
   replacement: function (content, node, options) {
     if (!content.trim()) return ''
-    return '［＃左に傍線］'+ content + '［＃左に傍線終わり］'
+    return '［＃傍線］'+ content + '［＃傍線終わり］'
   }
 }
 
 rules.del = {
-  filter: ['del'],
+  filter: ['del','s'],
 
   replacement: function (content, node, options) {
     if (!content.trim()) return ''
