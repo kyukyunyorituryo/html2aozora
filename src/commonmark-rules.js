@@ -38,6 +38,19 @@ rules.kanji = {
     return '｜' + content // ふりがなをつける部分を｜で区切る
   }
 }
+rules.tcy = {
+  filter: function (node, options) {
+    return (
+      node.nodeName === 'SPAN' &&
+      node.getAttribute('class') === 'tcy'
+    )
+  },
+
+  replacement: function (content, node, options) {
+    return content + '［＃「'+ content + '」は縦中横］'
+  }
+}
+
 rules.heading = {
   filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
