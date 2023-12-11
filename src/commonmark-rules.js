@@ -50,7 +50,30 @@ rules.tcy = {
     return content + '［＃「'+ content + '」は縦中横］'
   }
 }
+rules.sesame = {
+  filter: function (node, options) {
+    return (
+      node.nodeName === 'SPAN' &&
+      node.getAttribute('class') === 'em-sesame'
+    )
+  },
 
+  replacement: function (content, node, options) {
+    return '［＃傍点］'+ content + '［＃傍点終わり］'
+  }
+}
+rules.line = {
+  filter: function (node, options) {
+    return (
+      node.nodeName === 'SPAN' &&
+      node.getAttribute('class') === 'em-line'
+    )
+  },
+
+  replacement: function (content, node, options) {
+    return '［＃傍線］'+ content + '［＃傍線終わり］'
+  }
+}
 rules.heading = {
   filter: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 
